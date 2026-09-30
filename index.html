@@ -1,1015 +1,2044 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
 
-    <meta name="theme-color" content="#050505">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="BLACK CHANNEL">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
 
-    <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#050505">
 
-    <title>BLACK CHANNEL</title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="BLACK CHANNEL">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <title>BLACK CHANNEL</title>
 
-        body {
-            background: #050505;
-            color: #d6ffd6;
-            font-family: "Courier New", monospace;
-            min-height: 100vh;
-            overflow: hidden;
-        }
+  <link rel="manifest" href="manifest.json">
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            background: linear-gradient(
-                rgba(0,255,80,0.025) 50%,
-                transparent 50%
-            );
-            background-size: 100% 4px;
-            z-index: 100;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        .app {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #050505;
+      color: #00ff66;
+      font-family: "Courier New", monospace;
+      overflow: hidden;
+    }
 
-        header {
-            height: 72px;
-            border-bottom: 1px solid #183d20;
-            background: #070b08;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-        }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+    button,
+    input {
+      font-family: inherit;
+    }
 
-        .logo {
-            width: 38px;
-            height: 38px;
-            border: 1px solid #36ff68;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #36ff68;
-            font-size: 18px;
-            box-shadow: 0 0 12px rgba(54,255,104,.2);
-        }
+    /* =========================
+       HEADER
+    ========================= */
 
-        .brand h1 {
-            font-size: 18px;
-            letter-spacing: 4px;
-            color: #eaffea;
-        }
+    header {
+      height: 64px;
+      min-height: 64px;
+      border-bottom: 1px solid #064d24;
+      background: #070707;
 
-        .brand small {
-            display: block;
-            color: #4b8b59;
-            font-size: 10px;
-            margin-top: 3px;
-            letter-spacing: 2px;
-        }
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-        .security {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 11px;
-            color: #53c86c;
-        }
+      padding: 0 18px;
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #36ff68;
-            box-shadow: 0 0 10px #36ff68;
-        }
+      box-shadow:
+        0 0 20px rgba(0, 255, 102, 0.05);
+    }
 
-        main {
-            flex: 1;
-            display: flex;
-            min-height: 0;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .sidebar {
-            width: 260px;
-            border-right: 1px solid #183d20;
-            background: #070a08;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+    .logo {
+      width: 34px;
+      height: 34px;
 
-        .panel-title {
-            color: #438c50;
-            font-size: 10px;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
+      border: 1px solid #00ff66;
 
-        .identity {
-            border: 1px solid #1b4a25;
-            padding: 15px;
-            background: #08100a;
-        }
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-        .codename {
-            color: #54ff79;
-            font-size: 19px;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-        }
+      font-size: 16px;
+      font-weight: bold;
 
-        .identity-line {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-            font-size: 10px;
-        }
+      box-shadow:
+        0 0 8px rgba(0, 255, 102, 0.2);
+    }
 
-        .identity-label {
-            color: #50705a;
-        }
+    .brand-title {
+      font-size: 17px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
 
-        .identity-value {
-            color: #a6d9ad;
-            max-width: 125px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+    .brand-subtitle {
+      color: #4e8b62;
+      font-size: 9px;
+      margin-top: 2px;
+      letter-spacing: 1px;
+    }
 
-        .online {
-            color: #36ff68;
-        }
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
 
-        .channel-list {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
+      color: #00ff66;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
 
-        .channel {
-            padding: 10px;
-            border-left: 2px solid transparent;
-            color: #7fa587;
-            cursor: pointer;
-            font-size: 12px;
-        }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #00ff66;
+      border-radius: 50%;
 
-        .channel:hover {
-            background: #0c180e;
-            color: #baffc5;
-        }
+      box-shadow:
+        0 0 8px #00ff66;
+    }
 
-        .channel.active {
-            border-left-color: #36ff68;
-            background: #0d1d10;
-            color: #54ff79;
-        }
+    /* =========================
+       MAIN
+    ========================= */
 
-        .system {
-            margin-top: auto;
-            border-top: 1px solid #183d20;
-            padding-top: 15px;
-            font-size: 9px;
-            color: #3f6547;
-            line-height: 1.8;
-        }
+    .app {
+      flex: 1;
 
-        .chat {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-        }
+      display: grid;
+      grid-template-columns: 280px 1fr;
 
-        .chat-header {
-            height: 58px;
-            border-bottom: 1px solid #183d20;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-        }
+      min-height: 0;
+    }
 
-        .channel-name {
-            color: #e2ffe5;
-            font-size: 13px;
-            letter-spacing: 2px;
-        }
+    /* =========================
+       SIDEBAR
+    ========================= */
 
-        .channel-info {
-            color: #41664a;
-            font-size: 10px;
-        }
+    aside {
+      background: #070707;
+      border-right: 1px solid #064d24;
 
-        .messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
+      display: flex;
+      flex-direction: column;
 
-        .message {
-            max-width: 760px;
-        }
+      min-width: 0;
+    }
 
-        .message-meta {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 5px;
-        }
+    .profile {
+      padding: 18px;
+      border-bottom: 1px solid #064d24;
+    }
 
-        .message-user {
-            color: #54ff79;
-            font-weight: bold;
-            font-size: 12px;
-        }
+    .profile-label {
+      font-size: 9px;
+      color: #39784e;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
 
-        .message-time {
-            color: #46624c;
-            font-size: 9px;
-        }
+    .codename {
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 2px;
 
-        .message-text {
-            color: #b9d9bd;
-            font-size: 13px;
-            line-height: 1.6;
-            padding-left: 10px;
-            border-left: 1px solid #285d32;
-            word-break: break-word;
-        }
+      color: #00ff66;
 
-        .system-message .message-user {
-            color: #d1aa52;
-        }
+      text-shadow:
+        0 0 8px rgba(0, 255, 102, 0.25);
+    }
 
-        .system-message .message-text {
-            color: #887b5a;
-            border-left-color: #68572c;
-        }
+    .identity-line {
+      margin-top: 9px;
+      font-size: 9px;
+      color: #639e74;
+      line-height: 1.7;
+      word-break: break-all;
+    }
 
-        .composer {
-            min-height: 72px;
-            border-top: 1px solid #183d20;
-            padding: 14px 20px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
+    .identity-line strong {
+      color: #00b84a;
+      font-weight: normal;
+    }
 
-        .prompt {
-            color: #36ff68;
-            font-size: 15px;
-        }
+    .presence {
+      margin-top: 12px;
 
-        #messageInput {
-            flex: 1;
-            height: 42px;
-            background: #070c08;
-            border: 1px solid #1c4925;
-            color: #d9ffdc;
-            font-family: inherit;
-            font-size: 13px;
-            padding: 0 13px;
-            outline: none;
-        }
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
 
-        #messageInput:focus {
-            border-color: #36ff68;
-            box-shadow: 0 0 8px rgba(54,255,104,.1);
-        }
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: #00ff66;
+    }
 
-        #messageInput::placeholder {
-            color: #36513c;
-        }
+    .presence-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00ff66;
+      box-shadow: 0 0 7px #00ff66;
+    }
 
-        #sendButton {
-            height: 42px;
-            padding: 0 20px;
-            background: #0d1d10;
-            border: 1px solid #36ff68;
-            color: #54ff79;
-            font-family: inherit;
-            font-size: 11px;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
+    .presence-dot.offline {
+      background: #ff3333;
+      box-shadow: 0 0 7px #ff3333;
+    }
 
-        #sendButton:hover {
-            background: #17351c;
-        }
+    /* =========================
+       CHANNELS
+    ========================= */
 
-        #installButton {
-            display: none;
-            position: fixed;
-            bottom: 85px;
-            right: 20px;
-            z-index: 200;
-            padding: 12px 16px;
-            background: #0d1d10;
-            border: 1px solid #36ff68;
-            color: #54ff79;
-            font-family: inherit;
-            font-size: 10px;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
+    .channels {
+      padding: 14px 10px;
+      flex: 1;
+      overflow-y: auto;
+    }
 
-        @media (max-width: 700px) {
-            .sidebar {
-                display: none;
-            }
+    .section-title {
+      color: #39784e;
+      font-size: 9px;
+      letter-spacing: 2px;
 
-            header {
-                padding: 0 14px;
-            }
+      padding: 0 8px 9px;
+    }
 
-            .brand h1 {
-                font-size: 14px;
-            }
+    .channel {
+      width: 100%;
 
-            .brand small {
-                font-size: 8px;
-            }
+      border: 1px solid transparent;
+      background: transparent;
 
-            .messages {
-                padding: 18px 14px;
-            }
+      color: #65a577;
 
-            .composer {
-                padding: 10px;
-            }
+      padding: 10px 10px;
+      margin-bottom: 3px;
 
-            .prompt {
-                display: none;
-            }
-        }
-    </style>
+      text-align: left;
+
+      cursor: pointer;
+
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .channel:hover {
+      color: #00ff66;
+      border-color: #064d24;
+      background: #09140d;
+    }
+
+    .channel.active {
+      color: #00ff66;
+      border-color: #087235;
+      background: #0b1b11;
+
+      box-shadow:
+        inset 3px 0 0 #00ff66;
+    }
+
+    .channel::before {
+      content: "# ";
+      color: #39784e;
+    }
+
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid #064d24;
+    }
+
+    .install-btn {
+      width: 100%;
+
+      padding: 10px;
+
+      background: #07130b;
+      border: 1px solid #087235;
+
+      color: #00ff66;
+
+      cursor: pointer;
+
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .install-btn:hover {
+      background: #0c2414;
+      box-shadow: 0 0 10px rgba(0, 255, 102, 0.12);
+    }
+
+    /* =========================
+       CHAT
+    ========================= */
+
+    main {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(0, 255, 102, 0.025),
+          transparent 45%
+        ),
+        #050505;
+    }
+
+    .chat-header {
+      min-height: 62px;
+
+      padding: 12px 18px;
+
+      border-bottom: 1px solid #064d24;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .channel-title {
+      font-size: 15px;
+      letter-spacing: 2px;
+      color: #00ff66;
+    }
+
+    .channel-info {
+      color: #39784e;
+      font-size: 9px;
+      margin-top: 4px;
+    }
+
+    .security-label {
+      color: #39784e;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-align: right;
+    }
+
+    .security-label strong {
+      display: block;
+      color: #00ff66;
+      margin-top: 3px;
+    }
+
+    /* =========================
+       MESSAGES
+    ========================= */
+
+    .messages {
+      flex: 1;
+
+      overflow-y: auto;
+
+      padding: 20px;
+
+      scroll-behavior: smooth;
+    }
+
+    .message {
+      margin-bottom: 15px;
+
+      max-width: 850px;
+
+      animation: messageIn 0.15s ease-out;
+    }
+
+    @keyframes messageIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message-meta {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      font-size: 9px;
+
+      margin-bottom: 5px;
+    }
+
+    .message-sender {
+      color: #00ff66;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .message-node {
+      color: #39784e;
+    }
+
+    .message-time {
+      color: #275b38;
+    }
+
+    .message-body {
+      color: #b6d6bd;
+
+      font-size: 12px;
+      line-height: 1.6;
+
+      border-left: 2px solid #0a4522;
+
+      padding-left: 10px;
+
+      word-break: break-word;
+    }
+
+    .system-message {
+      color: #39784e;
+
+      font-size: 10px;
+      line-height: 1.5;
+
+      padding: 9px 11px;
+
+      margin-bottom: 14px;
+
+      border: 1px dashed #064d24;
+
+      background: rgba(0, 255, 102, 0.015);
+    }
+
+    .system-message strong {
+      color: #00ff66;
+    }
+
+    /* =========================
+       INPUT
+    ========================= */
+
+    .composer {
+      border-top: 1px solid #064d24;
+
+      padding: 12px;
+
+      display: flex;
+      gap: 8px;
+
+      background: #070707;
+    }
+
+    .prompt {
+      color: #00ff66;
+
+      display: flex;
+      align-items: center;
+
+      padding-left: 5px;
+      font-size: 13px;
+    }
+
+    #messageInput {
+      flex: 1;
+
+      min-width: 0;
+
+      background: #050505;
+
+      border: 1px solid #064d24;
+
+      color: #d5ead9;
+
+      outline: none;
+
+      padding: 12px;
+
+      font-size: 12px;
+    }
+
+    #messageInput:focus {
+      border-color: #087235;
+
+      box-shadow:
+        0 0 8px rgba(0, 255, 102, 0.08);
+    }
+
+    #messageInput::placeholder {
+      color: #275b38;
+    }
+
+    #sendBtn {
+      width: 90px;
+
+      border: 1px solid #087235;
+
+      background: #07130b;
+
+      color: #00ff66;
+
+      cursor: pointer;
+
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    #sendBtn:hover {
+      background: #0c2414;
+    }
+
+    #sendBtn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* =========================
+       LOADING / ERROR
+    ========================= */
+
+    .connection {
+      position: fixed;
+
+      right: 15px;
+      bottom: 78px;
+
+      padding: 8px 11px;
+
+      border: 1px solid #064d24;
+
+      background: #070707;
+
+      color: #39784e;
+
+      font-size: 9px;
+      letter-spacing: 1px;
+
+      z-index: 100;
+    }
+
+    .connection.online {
+      color: #00ff66;
+      border-color: #087235;
+    }
+
+    .connection.error {
+      color: #ff4444;
+      border-color: #6b1616;
+    }
+
+    /* =========================
+       SCANLINES
+    ========================= */
+
+    body::after {
+      content: "";
+
+      position: fixed;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.012) 0px,
+          rgba(255,255,255,0.012) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+
+      z-index: 999;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 760px) {
+
+      header {
+        height: 56px;
+        min-height: 56px;
+        padding: 0 12px;
+      }
+
+      .brand-subtitle {
+        display: none;
+      }
+
+      .header-status {
+        font-size: 8px;
+      }
+
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        display: none;
+      }
+
+      .chat-header {
+        min-height: 58px;
+        padding: 10px 13px;
+      }
+
+      .channel-title {
+        font-size: 13px;
+      }
+
+      .security-label {
+        font-size: 8px;
+      }
+
+      .messages {
+        padding: 14px;
+      }
+
+      .message-body {
+        font-size: 12px;
+      }
+
+      .composer {
+        padding: 8px;
+      }
+
+      #sendBtn {
+        width: 72px;
+      }
+
+      .connection {
+        bottom: 65px;
+        right: 8px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="app">
+  <!-- =========================
+       HEADER
+  ========================== -->
 
-    <header>
+  <header>
 
-        <div class="brand">
+    <div class="brand">
 
-            <div class="logo">◈</div>
+      <div class="logo">
+        BC
+      </div>
 
-            <div>
-                <h1>BLACK CHANNEL</h1>
-                <small>UNOFFICIAL COMMUNICATION NETWORK</small>
-            </div>
+      <div>
+        <div class="brand-title">
+          BLACK CHANNEL
+        </div>
+
+        <div class="brand-subtitle">
+          UNOFFICIAL COMMUNICATION NETWORK
+        </div>
+      </div>
+
+    </div>
+
+    <div class="header-status">
+      <span class="status-dot"></span>
+      <span id="headerStatus">CONNECTING</span>
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       APP
+  ========================== -->
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside>
+
+      <div class="profile">
+
+        <div class="profile-label">
+          ACTIVE IDENTITY
+        </div>
+
+        <div class="codename" id="codename">
+          INITIALIZING
+        </div>
+
+        <div class="identity-line">
+          NODE ID:
+          <strong id="nodeId">---</strong>
+          <br>
+
+          FIREBASE UID:
+          <strong id="firebaseUid">---</strong>
+          <br>
+
+          SESSION:
+          <strong id="sessionId">---</strong>
+        </div>
+
+        <div class="presence">
+
+          <span
+            class="presence-dot"
+            id="presenceDot"
+          ></span>
+
+          <span id="presenceText">
+            CONNECTING
+          </span>
 
         </div>
 
-        <div class="security">
-            <span class="status-dot"></span>
-            SECURE CHANNEL
+      </div>
+
+
+      <div class="channels">
+
+        <div class="section-title">
+          COMMUNICATION CHANNELS
         </div>
 
-    </header>
+        <button
+          class="channel active"
+          data-channel="BLACK-01"
+        >
+          BLACK-01
+        </button>
 
+        <button
+          class="channel"
+          data-channel="BLACK-02"
+        >
+          BLACK-02
+        </button>
+
+        <button
+          class="channel"
+          data-channel="OPERATIONS"
+        >
+          OPERATIONS
+        </button>
+
+        <button
+          class="channel"
+          data-channel="ARCHIVE"
+        >
+          ARCHIVE
+        </button>
+
+      </div>
+
+
+      <div class="sidebar-footer">
+
+        <button
+          class="install-btn"
+          id="installBtn"
+          hidden
+        >
+          ⬇ INSTALL BLACK CHANNEL
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- CHAT -->
 
     <main>
 
-        <aside class="sidebar">
+      <div class="chat-header">
 
-            <div>
+        <div>
 
-                <div class="panel-title">
-                    // IDENTITY
-                </div>
+          <div
+            class="channel-title"
+            id="channelTitle"
+          >
+            # BLACK-01
+          </div>
 
-                <div class="identity">
+          <div class="channel-info">
+            REALTIME COMMUNICATION CHANNEL
+          </div>
 
-                    <div
-                        class="codename"
-                        id="codename"
-                    >
-                        INITIALIZING...
-                    </div>
+        </div>
 
-                    <div class="identity-line">
-                        <span class="identity-label">
-                            NODE
-                        </span>
+        <div class="security-label">
+          CHANNEL STATUS
+          <strong id="channelStatus">
+            AUTHENTICATING
+          </strong>
+        </div>
 
-                        <span
-                            class="identity-value"
-                            id="nodeId"
-                        ></span>
-                    </div>
-
-                    <div class="identity-line">
-                        <span class="identity-label">
-                            SESSION
-                        </span>
-
-                        <span
-                            class="identity-value"
-                            id="sessionId"
-                        ></span>
-                    </div>
-
-                    <div class="identity-line">
-                        <span class="identity-label">
-                            STATUS
-                        </span>
-
-                        <span class="identity-value online">
-                            ONLINE
-                        </span>
-                    </div>
-
-                </div>
-
-            </div>
+      </div>
 
 
-            <div>
+      <div
+        class="messages"
+        id="messages"
+      >
 
-                <div class="panel-title">
-                    // CHANNELS
-                </div>
+        <div class="system-message">
+          <strong>[SYSTEM]</strong>
+          Initializing BLACK CHANNEL...
+        </div>
 
-                <div class="channel-list">
+        <div class="system-message">
+          <strong>[SYSTEM]</strong>
+          Establishing Firebase connection...
+        </div>
 
-                    <div
-                        class="channel active"
-                        data-channel="BLACK-01"
-                    >
-                        # BLACK-01
-                    </div>
-
-                    <div
-                        class="channel"
-                        data-channel="BLACK-02"
-                    >
-                        # BLACK-02
-                    </div>
-
-                    <div
-                        class="channel"
-                        data-channel="OPERATIONS"
-                    >
-                        # OPERATIONS
-                    </div>
-
-                    <div
-                        class="channel"
-                        data-channel="ARCHIVE"
-                    >
-                        # ARCHIVE
-                    </div>
-
-                </div>
-
-            </div>
+      </div>
 
 
-            <div class="system">
+      <div class="composer">
 
-                SYSTEM STATUS<br>
+        <div class="prompt">
+          &gt;
+        </div>
 
-                NETWORK ........
-                <span class="online">ONLINE</span>
-                <br>
+        <input
+          id="messageInput"
+          type="text"
+          maxlength="2000"
+          autocomplete="off"
+          placeholder="Digite uma mensagem..."
+          disabled
+        >
 
-                NODE ...........
-                <span class="online">ACTIVE</span>
-                <br>
+        <button
+          id="sendBtn"
+          disabled
+        >
+          SEND
+        </button>
 
-                ENCRYPTION ..... PENDING<br>
-
-                FIREBASE ....... OFFLINE<br>
-
-                VERSION ........ 0.1.0
-
-            </div>
-
-        </aside>
-
-
-        <section class="chat">
-
-            <div class="chat-header">
-
-                <div
-                    class="channel-name"
-                    id="channelName"
-                >
-                    # BLACK-01
-                </div>
-
-                <div class="channel-info">
-                    CLASSIFIED // INTERNAL
-                </div>
-
-            </div>
-
-
-            <div
-                class="messages"
-                id="messages"
-            >
-
-                <div class="message system-message">
-
-                    <div class="message-meta">
-
-                        <span class="message-user">
-                            SYSTEM
-                        </span>
-
-                        <span class="message-time">
-                            --:--:--
-                        </span>
-
-                    </div>
-
-                    <div class="message-text">
-                        Initializing communication channel...
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="composer">
-
-                <span class="prompt">&gt;</span>
-
-                <input
-                    type="text"
-                    id="messageInput"
-                    placeholder="Enter message..."
-                    autocomplete="off"
-                    maxlength="2000"
-                >
-
-                <button
-                    id="sendButton"
-                    type="button"
-                >
-                    SEND
-                </button>
-
-            </div>
-
-        </section>
+      </div>
 
     </main>
 
-</div>
+  </div>
 
 
-<button
-    id="installButton"
-    type="button"
->
-    INSTALL BLACK CHANNEL
-</button>
+  <!-- CONNECTION STATUS -->
+
+  <div
+    class="connection"
+    id="connectionStatus"
+  >
+    FIREBASE: CONNECTING
+  </div>
 
 
-<script>
+  <!-- =========================
+       FIREBASE + APPLICATION
+  ========================== -->
 
-    const prefixes = [
-        "NIGHT",
-        "BLACK",
-        "GHOST",
-        "GREY",
-        "SHADOW",
-        "RAVEN",
-        "WOLF",
-        "ECHO",
-        "SILENT",
-        "DARK",
-        "FROST",
-        "IRON",
-        "PHANTOM",
-        "VOID",
-        "ZERO"
+  <script type="module">
+
+    /*
+     * ============================================================
+     * FIREBASE CONFIG
+     * ============================================================
+     */
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+    import {
+      getAuth,
+      signInAnonymously,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+    import {
+      getDatabase,
+      ref,
+      set,
+      push,
+      onValue,
+      serverTimestamp,
+      onDisconnect
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyASwmaByRPWbJtNEjI7wIhn4c6QgeQryqg",
+
+      authDomain:
+        "black-channel-aba6d.firebaseapp.com",
+
+      projectId:
+        "black-channel-aba6d",
+
+      storageBucket:
+        "black-channel-aba6d.firebasestorage.app",
+
+      messagingSenderId:
+        "1062171583348",
+
+      appId:
+        "1:1062171583348:web:1b69a2567dfa28522bc221",
+
+      databaseURL:
+        "https://black-channel-aba6d-default-rtdb.firebaseio.com"
+
+    };
+
+
+    /*
+     * ============================================================
+     * INITIALIZE FIREBASE
+     * ============================================================
+     */
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    const database = getDatabase(app);
+
+
+    /*
+     * ============================================================
+     * DOM
+     * ============================================================
+     */
+
+    const codenameElement =
+      document.getElementById("codename");
+
+    const nodeIdElement =
+      document.getElementById("nodeId");
+
+    const firebaseUidElement =
+      document.getElementById("firebaseUid");
+
+    const sessionIdElement =
+      document.getElementById("sessionId");
+
+    const presenceDot =
+      document.getElementById("presenceDot");
+
+    const presenceText =
+      document.getElementById("presenceText");
+
+    const headerStatus =
+      document.getElementById("headerStatus");
+
+    const channelStatus =
+      document.getElementById("channelStatus");
+
+    const connectionStatus =
+      document.getElementById("connectionStatus");
+
+    const messagesElement =
+      document.getElementById("messages");
+
+    const messageInput =
+      document.getElementById("messageInput");
+
+    const sendButton =
+      document.getElementById("sendBtn");
+
+    const channelTitle =
+      document.getElementById("channelTitle");
+
+    const installButton =
+      document.getElementById("installBtn");
+
+
+    /*
+     * ============================================================
+     * LOCAL IDENTITY
+     * ============================================================
+     */
+
+    const CODENAME_KEY =
+      "blackChannelCodename";
+
+    const NODE_KEY =
+      "blackChannelNode";
+
+    const SESSION_KEY =
+      "blackChannelSession";
+
+
+    const codenamePrefixes = [
+      "NIGHT",
+      "BLACK",
+      "SHADOW",
+      "GHOST",
+      "RAVEN",
+      "VECTOR",
+      "ECHO",
+      "PHANTOM",
+      "SILENT",
+      "DARK",
+      "FALCON",
+      "VIPER"
     ];
 
-    const suffixes = [
-        "FOX",
-        "HAWK",
-        "WOLF",
-        "BIRD",
-        "VIPER",
-        "FALCON",
-        "SPECTER",
-        "ORBIT",
-        "RIDER",
-        "WATCH",
-        "NODE",
-        "ONE",
-        "SEVEN",
-        "NINE",
-        "X"
+
+    const codenameSuffixes = [
+      "FALCON",
+      "WOLF",
+      "HAWK",
+      "ORBIT",
+      "ZERO",
+      "NEXUS",
+      "SPECTER",
+      "TIGER",
+      "FOX",
+      "RIDER",
+      "MATRIX",
+      "GHOST"
     ];
+
+
+    function randomItem(array) {
+
+      return array[
+        Math.floor(
+          Math.random() * array.length
+        )
+      ];
+
+    }
 
 
     function randomHex(length) {
 
-        const chars =
-            "0123456789ABCDEF";
+      const characters =
+        "0123456789ABCDEF";
 
-        let result = "";
+      let result = "";
 
-        for (let i = 0; i < length; i++) {
+      for (let i = 0; i < length; i++) {
 
-            result += chars[
-                Math.floor(
-                    Math.random() * chars.length
-                )
-            ];
+        result += characters[
+          Math.floor(
+            Math.random() *
+            characters.length
+          )
+        ];
 
-        }
+      }
 
-        return result;
+      return result;
+
     }
 
 
     function generateCodename() {
 
-        const prefix =
-            prefixes[
-                Math.floor(
-                    Math.random() * prefixes.length
-                )
-            ];
+      return (
+        randomItem(codenamePrefixes) +
+        "-" +
+        randomItem(codenameSuffixes)
+      );
 
-        const suffix =
-            suffixes[
-                Math.floor(
-                    Math.random() * suffixes.length
-                )
-            ];
-
-        return prefix + "-" + suffix;
     }
 
 
-    let codename =
-        localStorage.getItem(
-            "blackChannelCodename"
-        );
+    function getOrCreateIdentity() {
 
-    if (!codename) {
+      let codename =
+        localStorage.getItem(CODENAME_KEY);
+
+      let nodeId =
+        localStorage.getItem(NODE_KEY);
+
+      let sessionId =
+        sessionStorage.getItem(SESSION_KEY);
+
+
+      if (!codename) {
 
         codename =
-            generateCodename();
+          generateCodename();
 
         localStorage.setItem(
-            "blackChannelCodename",
-            codename
-        );
-    }
-
-
-    let nodeId =
-        localStorage.getItem(
-            "blackChannelNode"
+          CODENAME_KEY,
+          codename
         );
 
-    if (!nodeId) {
+      }
+
+
+      if (!nodeId) {
 
         nodeId =
-            randomHex(4) +
-            "-" +
-            randomHex(4);
+          randomHex(4) +
+          "-" +
+          randomHex(4);
 
         localStorage.setItem(
-            "blackChannelNode",
-            nodeId
+          NODE_KEY,
+          nodeId
         );
+
+      }
+
+
+      if (!sessionId) {
+
+        sessionId =
+          randomHex(8);
+
+        sessionStorage.setItem(
+          SESSION_KEY,
+          sessionId
+        );
+
+      }
+
+
+      return {
+        codename,
+        nodeId,
+        sessionId
+      };
+
     }
 
 
-    const sessionId =
-        randomHex(8);
+    const identity =
+      getOrCreateIdentity();
 
 
-    document.getElementById(
-        "codename"
-    ).textContent = codename;
+    codenameElement.textContent =
+      identity.codename;
+
+    nodeIdElement.textContent =
+      identity.nodeId;
+
+    sessionIdElement.textContent =
+      identity.sessionId;
 
 
-    document.getElementById(
-        "nodeId"
-    ).textContent = nodeId;
+    /*
+     * ============================================================
+     * STATE
+     * ============================================================
+     */
+
+    let currentUser = null;
+
+    let currentChannel =
+      "BLACK-01";
+
+    let messagesUnsubscribe = null;
 
 
-    document.getElementById(
-        "sessionId"
-    ).textContent = sessionId;
+    /*
+     * ============================================================
+     * UI STATUS
+     * ============================================================
+     */
 
-
-    function getTime() {
-
-        return new Date().toLocaleTimeString(
-            "pt-BR",
-            {
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit"
-            }
-        );
-    }
-
-
-    function addMessage(
-        username,
-        text,
-        system = false
+    function setConnectionStatus(
+      status,
+      type = ""
     ) {
 
-        const messages =
-            document.getElementById(
-                "messages"
-            );
+      connectionStatus.textContent =
+        "FIREBASE: " + status;
 
-        const message =
-            document.createElement("div");
+      connectionStatus.className =
+        "connection " + type;
 
-        message.className =
-            system
-                ? "message system-message"
-                : "message";
-
-
-        const meta =
-            document.createElement("div");
-
-        meta.className =
-            "message-meta";
-
-
-        const user =
-            document.createElement("span");
-
-        user.className =
-            "message-user";
-
-        user.textContent =
-            username;
-
-
-        const time =
-            document.createElement("span");
-
-        time.className =
-            "message-time";
-
-        time.textContent =
-            getTime();
-
-
-        meta.appendChild(user);
-        meta.appendChild(time);
-
-
-        const content =
-            document.createElement("div");
-
-        content.className =
-            "message-text";
-
-        content.textContent =
-            text;
-
-
-        message.appendChild(meta);
-        message.appendChild(content);
-
-        messages.appendChild(message);
-
-        messages.scrollTop =
-            messages.scrollHeight;
     }
 
 
-    function sendMessage() {
+    function setOnlineUI() {
 
-        const input =
-            document.getElementById(
-                "messageInput"
-            );
+      presenceDot.classList.remove(
+        "offline"
+      );
 
-        const text =
-            input.value.trim();
+      presenceText.textContent =
+        "ONLINE";
 
-        if (!text) {
-            return;
-        }
+      headerStatus.textContent =
+        "ONLINE";
 
-        addMessage(
-            codename,
-            text
+      channelStatus.textContent =
+        "CONNECTED";
+
+      setConnectionStatus(
+        "ONLINE",
+        "online"
+      );
+
+    }
+
+
+    function setOfflineUI() {
+
+      presenceDot.classList.add(
+        "offline"
+      );
+
+      presenceText.textContent =
+        "OFFLINE";
+
+      headerStatus.textContent =
+        "OFFLINE";
+
+      channelStatus.textContent =
+        "DISCONNECTED";
+
+      setConnectionStatus(
+        "OFFLINE",
+        "error"
+      );
+
+    }
+
+
+    /*
+     * ============================================================
+     * AUTHENTICATION
+     * ============================================================
+     */
+
+    async function authenticate() {
+
+      try {
+
+        setConnectionStatus(
+          "AUTHENTICATING"
         );
 
-        input.value = "";
+        channelStatus.textContent =
+          "AUTHENTICATING";
 
-        input.focus();
+        /*
+         * Firebase cria uma conta anônima
+         * para este navegador/dispositivo.
+         */
+
+        await signInAnonymously(auth);
+
+      } catch (error) {
+
+        console.error(
+          "Firebase Auth Error:",
+          error
+        );
+
+        setOfflineUI();
+
+        messagesElement.innerHTML = "";
+
+        addSystemMessage(
+          "[ERROR] Falha na autenticação Firebase."
+        );
+
+        addSystemMessage(
+          error.message
+        );
+
+      }
+
     }
 
 
-    document.getElementById(
-        "sendButton"
-    ).addEventListener(
-        "click",
-        sendMessage
-    );
+    /*
+     * ============================================================
+     * AUTH STATE
+     * ============================================================
+     */
 
+    onAuthStateChanged(
+      auth,
+      async (user) => {
 
-    document.getElementById(
-        "messageInput"
-    ).addEventListener(
-        "keydown",
-        event => {
+        if (!user) {
 
-            if (event.key === "Enter") {
+          currentUser = null;
 
-                event.preventDefault();
+          setOfflineUI();
 
-                sendMessage();
-            }
+          messageInput.disabled = true;
+
+          sendButton.disabled = true;
+
+          return;
 
         }
+
+
+        currentUser = user;
+
+
+        /*
+         * UID técnico fornecido pelo Firebase.
+         */
+
+        firebaseUidElement.textContent =
+          user.uid;
+
+
+        setOnlineUI();
+
+        messageInput.disabled = false;
+
+        sendButton.disabled = false;
+
+
+        /*
+         * Registrar identidade no banco.
+         */
+
+        await registerPresence();
+
+        /*
+         * Começar a ouvir o canal atual.
+         */
+
+        listenToChannel(
+          currentChannel
+        );
+
+      }
     );
 
 
-    document.querySelectorAll(
-        ".channel"
-    ).forEach(channel => {
+    /*
+     * ============================================================
+     * PRESENCE / USER NODE
+     * ============================================================
+     */
 
-        channel.addEventListener(
+    async function registerPresence() {
+
+      if (!currentUser) {
+        return;
+      }
+
+
+      const uid =
+        currentUser.uid;
+
+
+      const userRef =
+        ref(
+          database,
+          "users/" + uid
+        );
+
+
+      const onlineRef =
+        ref(
+          database,
+          "presence/" + uid
+        );
+
+
+      try {
+
+        await set(
+          userRef,
+          {
+
+            codename:
+              identity.codename,
+
+            nodeId:
+              identity.nodeId,
+
+            firebaseUid:
+              uid,
+
+            sessionId:
+              identity.sessionId,
+
+            status:
+              "online",
+
+            lastSeen:
+              serverTimestamp()
+
+          }
+        );
+
+
+        /*
+         * Marca o usuário como offline
+         * quando a conexão for encerrada.
+         */
+
+        await onDisconnect(
+          onlineRef
+        ).set({
+
+          codename:
+            identity.codename,
+
+          nodeId:
+            identity.nodeId,
+
+          status:
+            "offline",
+
+          lastSeen:
+            serverTimestamp()
+
+        });
+
+
+        await set(
+          onlineRef,
+          {
+
+            codename:
+              identity.codename,
+
+            nodeId:
+              identity.nodeId,
+
+            sessionId:
+              identity.sessionId,
+
+            status:
+              "online",
+
+            lastSeen:
+              serverTimestamp()
+
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Presence error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /*
+     * ============================================================
+     * SYSTEM MESSAGE
+     * ============================================================
+     */
+
+    function addSystemMessage(text) {
+
+      const element =
+        document.createElement("div");
+
+      element.className =
+        "system-message";
+
+      element.textContent =
+        text;
+
+      messagesElement.appendChild(
+        element
+      );
+
+      messagesElement.scrollTop =
+        messagesElement.scrollHeight;
+
+    }
+
+
+    /*
+     * ============================================================
+     * MESSAGE RENDERING
+     * ============================================================
+     */
+
+    function formatTime(timestamp) {
+
+      if (!timestamp) {
+        return "--:--:--";
+      }
+
+
+      const date =
+        new Date(timestamp);
+
+
+      return date.toLocaleTimeString(
+        "pt-BR",
+        {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        }
+      );
+
+    }
+
+
+    function renderMessage(message) {
+
+      const wrapper =
+        document.createElement("div");
+
+      wrapper.className =
+        "message";
+
+
+      const meta =
+        document.createElement("div");
+
+      meta.className =
+        "message-meta";
+
+
+      const sender =
+        document.createElement("span");
+
+      sender.className =
+        "message-sender";
+
+      sender.textContent =
+        message.codename ||
+        "UNKNOWN";
+
+
+      const node =
+        document.createElement("span");
+
+      node.className =
+        "message-node";
+
+      node.textContent =
+        "NODE " +
+        (
+          message.nodeId ||
+          "----"
+        );
+
+
+      const time =
+        document.createElement("span");
+
+      time.className =
+        "message-time";
+
+      time.textContent =
+        formatTime(
+          message.clientTimestamp ||
+          message.serverTimestamp
+        );
+
+
+      meta.appendChild(sender);
+      meta.appendChild(node);
+      meta.appendChild(time);
+
+
+      const body =
+        document.createElement("div");
+
+      body.className =
+        "message-body";
+
+      /*
+       * textContent evita interpretar
+       * HTML enviado por outro usuário.
+       */
+
+      body.textContent =
+        message.text || "";
+
+
+      wrapper.appendChild(meta);
+      wrapper.appendChild(body);
+
+
+      messagesElement.appendChild(
+        wrapper
+      );
+
+    }
+
+
+    /*
+     * ============================================================
+     * REALTIME DATABASE LISTENER
+     * ============================================================
+     */
+
+    function listenToChannel(
+      channel
+    ) {
+
+      if (!currentUser) {
+        return;
+      }
+
+
+      if (messagesUnsubscribe) {
+
+        messagesUnsubscribe();
+
+        messagesUnsubscribe =
+          null;
+
+      }
+
+
+      messagesElement.innerHTML = "";
+
+
+      addSystemMessage(
+        "[SYSTEM] Connected to #" +
+        channel
+      );
+
+
+      const channelRef =
+        ref(
+          database,
+          "channels/" +
+          channel +
+          "/messages"
+        );
+
+
+      messagesUnsubscribe =
+        onValue(
+          channelRef,
+          (snapshot) => {
+
+            messagesElement.innerHTML =
+              "";
+
+
+            addSystemMessage(
+              "[SYSTEM] #" +
+              channel +
+              " // REALTIME LINK ACTIVE"
+            );
+
+
+            const data =
+              snapshot.val();
+
+
+            if (!data) {
+
+              addSystemMessage(
+                "[SYSTEM] Nenhuma mensagem neste canal."
+              );
+
+              return;
+
+            }
+
+
+            const messages =
+              Object.entries(data)
+                .map(
+                  ([id, message]) => ({
+                    id,
+                    ...message
+                  })
+                )
+                .sort(
+                  (a, b) => {
+
+                    const timeA =
+                      a.clientTimestamp ||
+                      0;
+
+                    const timeB =
+                      b.clientTimestamp ||
+                      0;
+
+                    return timeA - timeB;
+
+                  }
+                );
+
+
+            messages.forEach(
+              renderMessage
+            );
+
+
+            messagesElement.scrollTop =
+              messagesElement.scrollHeight;
+
+          },
+
+          (error) => {
+
+            console.error(
+              "Realtime Database error:",
+              error
+            );
+
+            setConnectionStatus(
+              "DATABASE ERROR",
+              "error"
+            );
+
+            addSystemMessage(
+              "[ERROR] Não foi possível ler o canal."
+            );
+
+          }
+        );
+
+    }
+
+
+    /*
+     * ============================================================
+     * SEND MESSAGE
+     * ============================================================
+     */
+
+    async function sendMessage() {
+
+      if (!currentUser) {
+
+        addSystemMessage(
+          "[ERROR] Usuário ainda não autenticado."
+        );
+
+        return;
+
+      }
+
+
+      const text =
+        messageInput.value.trim();
+
+
+      if (!text) {
+        return;
+      }
+
+
+      if (text.length > 2000) {
+
+        addSystemMessage(
+          "[ERROR] Mensagem excede 2000 caracteres."
+        );
+
+        return;
+
+      }
+
+
+      sendButton.disabled =
+        true;
+
+
+      try {
+
+        const messagesRef =
+          ref(
+            database,
+            "channels/" +
+            currentChannel +
+            "/messages"
+          );
+
+
+        const newMessageRef =
+          push(messagesRef);
+
+
+        await set(
+          newMessageRef,
+          {
+
+            text:
+              text,
+
+            codename:
+              identity.codename,
+
+            nodeId:
+              identity.nodeId,
+
+            firebaseUid:
+              currentUser.uid,
+
+            sessionId:
+              identity.sessionId,
+
+            clientTimestamp:
+              Date.now(),
+
+            serverTimestamp:
+              serverTimestamp()
+
+          }
+        );
+
+
+        messageInput.value = "";
+
+        messageInput.focus();
+
+      } catch (error) {
+
+        console.error(
+          "Send message error:",
+          error
+        );
+
+
+        addSystemMessage(
+          "[ERROR] Falha ao enviar mensagem."
+        );
+
+      } finally {
+
+        sendButton.disabled =
+          false;
+
+      }
+
+    }
+
+
+    /*
+     * ============================================================
+     * SEND BUTTON
+     * ============================================================
+     */
+
+    sendButton.addEventListener(
+      "click",
+      sendMessage
+    );
+
+
+    /*
+     * ENTER TO SEND
+     */
+
+    messageInput.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key === "Enter" &&
+          !event.shiftKey
+        ) {
+
+          event.preventDefault();
+
+          sendMessage();
+
+        }
+
+      }
+    );
+
+
+    /*
+     * ============================================================
+     * CHANNEL SWITCH
+     * ============================================================
+     */
+
+    document
+      .querySelectorAll(".channel")
+      .forEach(
+        (button) => {
+
+          button.addEventListener(
             "click",
-            function () {
+            () => {
 
-                document.querySelectorAll(
-                    ".channel"
-                ).forEach(item => {
-
+              document
+                .querySelectorAll(
+                  ".channel"
+                )
+                .forEach(
+                  (item) =>
                     item.classList.remove(
-                        "active"
-                    );
-
-                });
-
-
-                this.classList.add(
-                    "active"
+                      "active"
+                    )
                 );
 
 
-                const channelName =
-                    this.dataset.channel;
+              button.classList.add(
+                "active"
+              );
 
 
-                document.getElementById(
-                    "channelName"
-                ).textContent =
-                    "# " + channelName;
+              currentChannel =
+                button.dataset.channel;
 
 
-                addMessage(
-                    "SYSTEM",
-                    "Channel switched to #" +
-                    channelName,
-                    true
-                );
+              channelTitle.textContent =
+                "# " +
+                currentChannel;
+
+
+              channelStatus.textContent =
+                currentUser
+                  ? "CONNECTED"
+                  : "AUTHENTICATING";
+
+
+              listenToChannel(
+                currentChannel
+              );
 
             }
-        );
+          );
 
-    });
-
-
-    let deferredPrompt = null;
+        }
+      );
 
 
-    const installButton =
-        document.getElementById(
-            "installButton"
-        );
+    /*
+     * ============================================================
+     * PWA INSTALLATION
+     * ============================================================
+     */
+
+    let deferredInstallPrompt =
+      null;
 
 
     window.addEventListener(
-        "beforeinstallprompt",
-        event => {
+      "beforeinstallprompt",
+      (event) => {
 
-            event.preventDefault();
+        event.preventDefault();
 
-            deferredPrompt =
-                event;
+        deferredInstallPrompt =
+          event;
 
-            installButton.style.display =
-                "block";
-        }
+        installButton.hidden =
+          false;
+
+      }
     );
 
 
     installButton.addEventListener(
-        "click",
-        async () => {
+      "click",
+      async () => {
 
-            if (!deferredPrompt) {
-                return;
-            }
-
-            deferredPrompt.prompt();
-
-            await deferredPrompt.userChoice;
-
-            deferredPrompt = null;
-
-            installButton.style.display =
-                "none";
+        if (!deferredInstallPrompt) {
+          return;
         }
+
+
+        deferredInstallPrompt.prompt();
+
+
+        await deferredInstallPrompt.userChoice;
+
+
+        deferredInstallPrompt =
+          null;
+
+        installButton.hidden =
+          true;
+
+      }
     );
 
 
-    if ("serviceWorker" in navigator) {
+    /*
+     * ============================================================
+     * SERVICE WORKER
+     * ============================================================
+     */
 
-        window.addEventListener(
-            "load",
-            () => {
+    if (
+      "serviceWorker" in navigator
+    ) {
 
-                navigator.serviceWorker
-                    .register("./sw.js")
-                    .then(() => {
+      window.addEventListener(
+        "load",
+        () => {
 
-                        console.log(
-                            "BLACK CHANNEL SERVICE WORKER ACTIVE"
-                        );
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then(
+              () => {
 
-                    })
-                    .catch(error => {
+                console.log(
+                  "BLACK CHANNEL Service Worker registrado."
+                );
 
-                        console.error(
-                            "SERVICE WORKER ERROR:",
-                            error
-                        );
+              }
+            )
+            .catch(
+              (error) => {
 
-                    });
+                console.error(
+                  "Service Worker error:",
+                  error
+                );
 
-            }
-        );
+              }
+            );
+
+        }
+      );
 
     }
 
 
-    setTimeout(() => {
+    /*
+     * ============================================================
+     * START
+     * ============================================================
+     */
 
-        addMessage(
-            "SYSTEM",
-            "Communication channel ready.",
-            true
-        );
+    authenticate();
 
-    }, 700);
-
-
-    console.log(
-        "BLACK CHANNEL",
-        codename,
-        nodeId,
-        sessionId
-    );
-
-</script>
+  </script>
 
 </body>
 </html>
-```
